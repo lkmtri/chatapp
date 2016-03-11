@@ -4,8 +4,8 @@
   "description": "Just another chat app",
   "author": "Tri Le <lkmtri@gmail.com>",
   "scripts": {
-    "server": "node server/bootstrap.js",
-    "build": "node_modules/webpack/bin/webpack.js"
+    "build": "nodemon --watch client node_modules/webpack/bin/webpack.js",
+    "server": "nodemon --watch server server/bootstrap.js"
   },
   "dependencies": {
     "body-parser": "^1.15.0",
@@ -17,6 +17,7 @@
     "handlebars": "^4.0.5",
     "jquery": "^2.2.1",
     "mongodb": "^2.1.7",
+    "nodemon": "^1.9.1",
     "socketio": "^1.0.0",
     "webpack": "^1.12.14"
   },
