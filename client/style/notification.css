@@ -1,0 +1,41 @@
+.notificationContainter {
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  height: 1px;
+  overflow: visible;
+  z-index: 999;
+}
+
+.hidden {
+  display: none;
+}
+
+.notificationLeft {
+  height: 1px;
+  flex-grow: 1;
+}
+
+.notificationRight {
+  height: 1px;
+  flex-grow: 1;
+}
+
+.messageContainer {
+  opacity: 0.50;
+  -webkit-transition: opacity 1s ease-in-out;
+  transition: opacity 1s ease-in-out;
+}
+
+.messageContainer:hover {
+  opacity: 0.90;
+}
+
+.notificationMid {
+  padding-top: 20px;
+  height: 1px;
+  width: 500px;
+}
