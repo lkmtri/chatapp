@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import styles from '../style/menuIcon.css';
-import PrivateOnly from './PrivateOnly';
-import Modal from './Modal';
-import requestFriend from '../actions/requestFriend';
+import styles from '../../../style/menuIcon.css';
+import Modal from '../components/Modal';
+import requestFriend from '../../../actions/requestFriend';
 
 class AddFriend extends Component {
   constructor(props) {
@@ -16,7 +15,7 @@ class AddFriend extends Component {
 
   render() {
     return (
-      <PrivateOnly>
+      <div>
         <i className = { 'add user icon ' + styles.menuIcon } onClick = { this.openModal }/>
         <Modal
           keys = 'AddFriend'
@@ -34,7 +33,7 @@ class AddFriend extends Component {
           }
           showModal = { this.state.openModal }
         />
-      </PrivateOnly>
+      </div>
     );
   }
 

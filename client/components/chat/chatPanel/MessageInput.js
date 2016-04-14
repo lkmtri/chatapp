@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { composeMessage } from '../actions/messages';
+import { composeMessage } from '../../../actions/messages';
 
 class MessageInput extends Component {
   constructor(props) {

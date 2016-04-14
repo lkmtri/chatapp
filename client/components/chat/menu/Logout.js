@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import PrivateOnly from './PrivateOnly';
 import { connect } from 'react-redux';
-import user from '../actions/users';
+import user from '../../../actions/users';
 import { Link } from 'react-router';
-import styles from '../style/menuIcon.css';
-import Modal from './Modal';
+import styles from '../../../style/menuIcon.css';
+import Modal from '../components/Modal';
 
 class Logout extends Component {
   constructor(props) {
@@ -16,7 +15,7 @@ class Logout extends Component {
 
   render() {
     return (
-      <PrivateOnly>
+      <div>
         <i className = {'sign out icon ' + styles.menuIcon}  onClick = {this.onClick}/>
         <Modal
           keys = 'Logout'
@@ -32,7 +31,7 @@ class Logout extends Component {
           }
           showModal = { this.state.openModal }
         />
-      </PrivateOnly>
+      </div>
     );
   }
 

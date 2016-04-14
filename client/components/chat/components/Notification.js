@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import styles from '../style/notification.css';
-import notification from '../actions/notification';
+import styles from '../../../style/notification.css';
+import notification from '../../../actions/notification';
 
 class Notification extends Component {
   constructor(props) {

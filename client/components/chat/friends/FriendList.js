@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import styles from '../style/friendMenu.css';
-import FriendRequestList from './FriendRequestList';
+import styles from '../../../style/friendMenu.css';
+import RequestList from './RequestList';
 
 class FriendList extends Component {
   constructor(props) {
@@ -25,7 +25,7 @@ class FriendList extends Component {
           (
             <div></div>
           ) : (
-            <FriendRequestList/>
+            <RequestList/>
           )
         }
       </div>

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import styles from '../style/friendRequestItem.css';
-import iconStyles from '../style/menuIcon.css';
+import styles from '../../../style/friendRequestItem.css';
+import iconStyles from '../../../style/menuIcon.css';
 
-class FriendRequestItem extends Component {
+class RequestItem extends Component {
   render() {
     return (
       <div className = { styles.friendRequestItemContainer }>
@@ -18,4 +18,4 @@ class FriendRequestItem extends Component {
   }
 }
 
-export default FriendRequestItem;
+export default RequestItem;

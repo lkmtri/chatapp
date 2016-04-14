@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import user from '../actions/users';
-import PublicOnly from './PublicOnly';
+import user from '../../actions/users';
 
 class Login extends Component {
   constructor(props) {
@@ -14,7 +13,7 @@ class Login extends Component {
 
   render() {
     return (
-      <PublicOnly>
+      <div>
         <form className = 'ui form' onSubmit = {this.onSubmit}>
           <div className = 'field'>
             <label>Username:</label>
@@ -32,7 +31,7 @@ class Login extends Component {
           </div>
           <button className = 'ui teal button' type = "submit" >Login</button>
         </form>
-      </PublicOnly>
+      </div>
     );
   }
 

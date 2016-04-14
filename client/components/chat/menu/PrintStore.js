@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import styles from '../style/menuIcon.css';
+import styles from '../../../style/menuIcon.css';
+
 class PrintStore extends Component {
   render() {
     return (

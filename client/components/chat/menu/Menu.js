@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styles from '../style/index.css';
+import styles from '../../../style/index.css';
 import Avatar from './Avatar';
 import Logout from './Logout';
 import AddFriend from './AddFriend';

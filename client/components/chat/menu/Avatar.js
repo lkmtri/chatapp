@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 require('identicon.js');
 import { connect } from 'react-redux';
-import Image from './Image';
-import styles from '../style/index.css';
+import Image from '../components/Image';
+import styles from '../../../style/index.css';
 
 class Avatar extends Component {
   render() {

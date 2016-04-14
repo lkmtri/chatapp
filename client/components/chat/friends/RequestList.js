@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import FriendRequestItem from './FriendRequestItem';
+import RequestItem from './RequestItem';
 
-class FriendRequestList extends Component {
+class RequestList extends Component {
   render() {
     return (
       <div>
         {
           this.props.friendRequestList.map((e) => {
-            return <FriendRequestItem username = { e } key = { e }/>
+            return <RequestItem username = { e } key = { e }/>
           })
         }
       </div>
@@ -28,9 +28,9 @@ const mapDispatchToProps = (dispatch) => {
   };
 }
 
-FriendRequestList = connect(
+RequestList = connect(
   mapStateToProps,
   mapDispatchToProps
-)(FriendRequestList);
+)(RequestList);
 
-export default FriendRequestList;
+export default RequestList;

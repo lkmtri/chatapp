@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Message from '../components/Message';
+import Message from '../components/chat/chatPanel/Message';
 import { connect } from 'react-redux';
 
 class Messages extends Component {

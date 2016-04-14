@@ -5,13 +5,9 @@ import thunkMiddleware from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { Router, Route, Link, browserHistory } from 'react-router';
-import Login from './components/Login';
-// import SignUp from './components/SignUp';
 import Index from './components/Index';
-import PageNotFound from './components/PageNotFound';
-import Chat from './components/Chat';
+import PageNotFound from './components/components/PageNotFound';
 import chatApp from './reducers/index';
-import Logout from './components/Logout';
 import $ from 'jquery';
 
 if (window !== undefined) {

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
-import Chat from './Chat';
+import Chat from './chat/Chat';
 import fetchData from '../actions/fetchData';
-import LoginSignupPage from './LoginSignupPage';
+import LoginSignupPage from './login-signup/LoginSignupPage';
 import styles from '../style/index.css';
 
 class Index extends Component {
