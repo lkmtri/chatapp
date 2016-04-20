@@ -1,5 +1,5 @@
 import request from 'superagent';
-import { socket } from '../api/socket';
+import socket from '../api/socket';
 import fetch from './fetchData';
 
 const requestLogin = (username) => {
@@ -110,4 +110,4 @@ const logout = () => {
 }
 
 
-export default { login, logout, signup, removeSignUpError };
+export default { login, logout, signup, removeSignUpError, successfulLogin };

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Login from './Login';
 import SignUp from './SignUp';
+import PrintStore from '../chat/menu/PrintStore';
 
 class LoginSignupPage extends Component {
   render() {
@@ -11,6 +12,7 @@ class LoginSignupPage extends Component {
           <div className = "ui two column middle aligned very relaxed stackable grid container">
             <div className ="column">
               <Login/>
+              <PrintStore/>
             </div>
             <div className ="ui vertical divider">Or</div>
             <div className ="column">

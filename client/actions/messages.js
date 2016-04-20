@@ -1,36 +1,39 @@
-import { socket } from '../api/socket';
+import socket from '../api/socket';
 import uuid from 'uuid';
+import request from 'superagent';
 
-const sendingMessage = (messageId, messageTo, message) => {
+const sendingMessage = ({ messageId, messageTo, message, time }) => {
   return {
     type: 'MESSAGE_SENDING',
     messageId,
     messageTo,
-    message
+    message,
+    time
   };
-}
-
-const sentMessage = (messageId, messageTo, message) => {
-  // console.log('prepare sent action');
-  return {
-    type: 'NEW_MESSAGE',
-    messageId,
-  }
 }
 
 export const composeMessage = (messageTo, message) => {
   const messageId = uuid.v4();
+  const d = new Date();
+  const time = d.getTime();
   const messageData = {
+    token: localStorage.token,
     messageId,
     messageTo,
-    message
+    message,
+    time
   };
+
   return (dispatch) => {
-    dispatch(sendingMessage(messageId, messageTo, message));
-    setTimeout(() => socket.emit('newMessage', { messageId, messageTo, message }), 1000);
-    socket.on('received', (data) => {
-      dispatch(sentMessage(data.messageId));
-    });
+    dispatch(sendingMessage(messageData));
+    request
+      .post('/newMessage')
+      .send(messageData)
+      .end((err, res) => {
+        if (res.body.success) {
+          console.log('message sent');
+        }
+      });
   };
 };
 

@@ -1,13 +1,14 @@
 import express from 'express';
 import expressHbs from 'express-handlebars';
 import { Server } from 'http';
-import socket from 'socket.io';
 import bodyParser from 'body-parser';
 import config from '../config/config';
 import uuid from 'uuid';
 import userdb from './users';
-import activeSessions from './activeSessions';
 import jwt from 'jsonwebtoken';
+import message from './message';
+import socket from 'socket.io';
+import { createClient } from 'then-redis';
 
 const jwtKey = 'secretKey';
 const app = express();
@@ -17,15 +18,14 @@ const io = socket(http);
 app.engine('hbs', expressHbs({
   extname: 'hbs'
 }));
+
 app.set('view engine', 'hbs');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
 app.use('/', express.static('./dist'));
 
 app.post('/fetchFriendRequest', (req, res) => {
-  // console.log('fetchFriendRequest');
   const token = req.body.token;
   jwt.verify(token, jwtKey, (err, decoded) => {
     if (err) {
@@ -33,16 +33,139 @@ app.post('/fetchFriendRequest', (req, res) => {
         success: false
       });
     } else {
-      // console.log('here');
       userdb
         .getFriendRequest(decoded.username)
         .then((o) => {
-          // console.log(o);
           res.json({
             success: true,
             friendRequestList: o
           });
+        })
+        .catch((e) => {
+          res.json({
+            success: false
+          });
         });
+    }
+  });
+});
+
+app.post('/fetchFriendList', (req, res) => {
+  const token = req.body.token;
+  jwt.verify(token, jwtKey, (err, decoded) => {
+    if (err) {
+      res.json({
+        success: false
+      });
+    } else {
+      userdb
+        .getFriendList(decoded.username)
+        .then((o) => {
+          res.json({
+            success: true,
+            friendList: o
+          });
+        })
+        .catch((e) => {
+          res.json({
+            success: false
+          });
+        });
+    }
+  });
+})
+
+app.post('/fetchMessageList', (req, res) => {
+  const token = req.body.token;
+  jwt.verify(token, jwtKey, (err, decoded) => {
+    if (err) {
+      res.json({
+        success: false
+      });
+    } else {
+      message
+        .loadMessage(decoded.username)
+        .then((o) => {
+          res.json({
+            success: true,
+            messageList: o
+          });
+        });
+    }
+  });
+});
+
+app.post('/acceptFriendRequest', (req, res) => {
+  const token = req.body.token;
+  jwt.verify(token, jwtKey, (err, decoded) => {
+    if (err) {
+      res.json({
+        success: false
+      });
+    } else {
+      const friendship = {
+        username: decoded.username,
+        friend: req.body.friend,
+        time: req.body.time
+      };
+      userdb
+        .acceptFriendRequest(friendship)
+        .then((o) => {
+          res.json({
+            success: true
+          });
+        })
+        .catch((e) => {
+          res.json({
+            success: false
+          });
+        });
+    }
+  });
+});
+
+app.post('/declineFriendRequest', (req, res) => {
+  const token = req.body.token;
+  jwt.verify(token, jwtKey, (err, decoded) => {
+    if (err) {
+      res.json({
+        success: false
+      });
+    } else {
+      const friendship = {
+        username: decoded.username,
+        friend: req.body.friend,
+      };
+      userdb
+        .declineFriendRequest(friendship)
+        .then((o) => {
+          res.json({
+            success: true
+          });
+        })
+        .catch((e) => {
+          res.json({
+            success: false
+          });
+        });
+    }
+  });
+});
+
+app.post('/newMessage', (req, res) => {
+  const token = req.body.token;
+  jwt.verify(token, jwtKey, (err, decoded) => {
+    if (!err) {
+      const newMessage = {
+        from: decoded.username,
+        to: req.body.messageTo,
+        message: req.body.message,
+        time: req.body.time
+      };
+      message.newMessage(newMessage);
+      res.json({
+        success: true
+      });
     }
   });
 });
@@ -71,7 +194,6 @@ app.post('/signup', (req, res) => {
         userdb
           .addNewUser(newUser)
           .then((o) => {
-            console.log(response);
             res.json(response);
           });
       } else {
@@ -87,7 +209,6 @@ app.post('/signup', (req, res) => {
 app.post('/loginExistingSession', (req, res) => {
   const token = req.body.token;
   jwt.verify(token, jwtKey, (err, decoded) => {
-    // console.log('decoded: ' + JSON.stringify(decoded));
     if (err) {
       res.json({
         verify: false,
@@ -111,7 +232,6 @@ app.post('/requestFriend', (req, res) => {
       .isExistingUsername(friend)
       .then((o) => {
         if (o) {
-          console.log('adding new friendRequest');
           userdb
             .addFriendRequest({
               username: decoded.username,
@@ -119,12 +239,11 @@ app.post('/requestFriend', (req, res) => {
               time
             })
             .then(() => {
-              console.log('friendRequest added');
               res.json({
                 success: true,
                 message: ''
               });
-            })
+            });
         } else {
           res.json({
             success: false,
@@ -144,12 +263,10 @@ app.post('/requestFriend', (req, res) => {
 
 app.post('/authenticate', (req, res) => {
   const user = req.body;
-  console.log('AUTHENTICATE :' + JSON.stringify(user));
   userdb
     .checkCredentials(user)
     .then((o) => {
       const token = jwt.sign({ username: user.username }, jwtKey);
-      console.log('Token: ' + token);
       if (o) {
         res.json({
           login: 'success',
@@ -175,6 +292,7 @@ app.get('/*', (req, res) => {
 });
 
 io.on('connection', (socket) => {
+  const redisCli = createClient();
   console.log('NEW SOCKET CONNECTED: ' + socket.id);
 
   socket.on('newMessage', (data) => {
@@ -184,49 +302,28 @@ io.on('connection', (socket) => {
   });
 
   socket.on('registerLogin', (data) => {
-    const newSession = {
-      username: data.username,
-      socketID: socket.id
-    };
-    console.log(newSession);
-    activeSessions
-      .registerLogin(newSession)
-      .then((o) => {
-        console.log('loginSuccessful');
-        console.log('socketID', socket.id);
-        io.to(socket.id).emit('loginSuccessful', data);
-      })
-      .catch((e) => {
-        console.log('loginFailed: ' + e);
-        socket.emit('loginFailed', data);
-      });
-  })
+    console.log('SOCKET registerLogin');
+    redisCli.subscribe(`pubsub:${data.username}`).then(o => {
+      io.to(socket.id).emit('loginSuccessful', data);
+    }).catch(e => {
+      console.log('error: ' + e);
+    });
+    redisCli.on('message', (channel, message) => {
+      if (channel === `pubsub:${data.username}`) {
+        io.to(socket.id).emit('message', message);
+      }
+    });
+  });
 
   socket.on('registerLogout', (data) => {
-    activeSessions
-      .registerLogout(socket.id)
-      .then((o) => {
-        console.log('logoutSuccessful');
-        socket.emit('logoutSuccessful', data);
-      })
-      .catch((e) => {
-        io.to(socket.id).emit('logoutFailed', e);
-      });
-  })
-
-  socket.on('friendRequest', (data) => {
-    console.log('request received: ' + JSON.stringify(data));
-    userdb
-      .addFriendRequest(data)
-      .then((o) => {
-        console.log(o);
-      });
+    redisCli.unsubscribe(`pubsub:${data.username}`).then(o => {
+      io.to(socket.id).emit('logoutSuccessful', data);
+    });
   });
 
   socket.on('disconnect', () => {
-    activeSessions.registerLogout(socket.id);
     console.log('SOCKET DISCONNECTED: ' + socket.id);
-  })
+  });
 });
 
 

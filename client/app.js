@@ -15,7 +15,7 @@ if (window !== undefined) {
   window.$ = $;
 }
 
-const store = createStore(
+export const store = createStore(
   chatApp,
   applyMiddleware(
     thunkMiddleware

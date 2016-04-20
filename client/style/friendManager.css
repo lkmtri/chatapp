@@ -1,7 +1,7 @@
 .friendMenuContainer {
   width: 100%;
   height: 50px;
-  border-bottom: 1px #dedede solid;
+  /*border-bottom: 1px #dedede solid;*/
   padding: 0px;
   display: flex;
 }
@@ -14,6 +14,7 @@
   height: 100%;
   justify-content: center;
   align-items: center;
+  background-color: #ebebeb;
   transition: background-color 0.2s ease-in-out;
 }
 
@@ -23,22 +24,31 @@
   height: 100%;
   display: flex;
   justify-content: center;
+  background-color: #ebebeb;
   align-items: center;
   transition: background-color 0.2s ease-in-out;
 }
 
 .friendMenuRightSelected {
-  background-color: #ebebeb;
+  background-color: #ffffff;
 }
 
 .friendMenuLeftSelected {
-  background-color: #ebebeb;
+  background-color: #ffffff;
 }
 
 .friendMenuLeft:hover {
-  background-color: #efefef;
+  background-color: #dedede;
 }
 
 .friendMenuRight:hover {
-  background-color: #efefef;
+  background-color: #dedede;
+}
+
+.friendMenuRightSelected:hover {
+  background-color: #ffffff;
+}
+
+.friendMenuLeftSelected:hover {
+  background-color: #ffffff;
 }

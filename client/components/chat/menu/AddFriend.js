@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import styles from '../../../style/menuIcon.css';
 import Modal from '../components/Modal';
-import requestFriend from '../../../actions/requestFriend';
+import request from '../../../actions/requestFriend';
 
 class AddFriend extends Component {
   constructor(props) {
@@ -40,7 +40,7 @@ class AddFriend extends Component {
   sendRequest = (e) => {
     e.preventDefault();
     if (this.state.friend !== '') {
-      this.props.dispatch(requestFriend(this.state.friend));
+      this.props.dispatch(request.requestFriend(this.state.friend));
     }
   }
 

@@ -27,8 +27,10 @@ class MessageInput extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { dispatch, messageTo } = this.props;
-    dispatch(composeMessage(messageTo, this.state.message));
+    const { dispatch, activeChat } = this.props;
+    if (activeChat !== '') {
+      dispatch(composeMessage(activeChat, this.state.message));
+    }
     this.setState({
       message: ''
     });
@@ -37,8 +39,7 @@ class MessageInput extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    //state: state,
-    messageTo: state.messageTo
+    activeChat: state.messageList.active
   };
 };
 

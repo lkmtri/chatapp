@@ -1,4 +1,5 @@
 {
   "presets": ["es2015", "react"],
-  "plugins": ["transform-decorators"]
+  "plugins": ["transform-decorators"],
+  "plugins": ["transform-async-to-generator"]
 }

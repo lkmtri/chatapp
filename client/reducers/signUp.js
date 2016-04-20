@@ -36,6 +36,7 @@ const signUp = (state = {
         success: true,
         request: false
       };
+    case 'LOGOUT_SUCCESSFUL':
     case 'REMOVE_SIGN_UP_ERROR':
       return {
         ...state,

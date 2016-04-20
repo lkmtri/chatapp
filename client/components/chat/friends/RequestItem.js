@@ -10,8 +10,8 @@ class RequestItem extends Component {
           { this.props.username }
         </div>
         <div className = { styles.friendRequestItemActions }>
-          <i className = { 'remove icon ' + iconStyles.menuIcon }/>
-          <i className = { 'checkmark icon ' + iconStyles.menuIcon }/>
+          <i className = { 'remove icon ' + iconStyles.menuIcon } onClick = { this.props.onDecline }/>
+          <i className = { 'checkmark icon ' + iconStyles.menuIcon } onClick = { this.props.onAccept }/>
         </div>
       </div>
     );

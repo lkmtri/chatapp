@@ -55,24 +55,57 @@ const isExistingUsername = (username) => {
     });
 }
 
-const addFriendRequest = ({ username, friend , time }) => {
-  const outRequest = {
-    friend,
-    time
-  };
-  const inRequest = {
-    username,
-    time
-  };
-
+const acceptFriendRequest = ({ username, friend, time }) => {
+  console.log(`ACCEPT_FRIEND_REQUEST: ${username} ${friend}`);
   return Promise.all([
-    client.zadd(`friendRequest:out:${username}`, time, friend),
-    client.zadd(`friendRequest:in:${friend}`, time, username)
+    client.zrem(`friendRequest:in:${username}`, friend),
+    client.zrem(`friendRequest:out:${friend}`, username),
+    client.zadd(`friendList:${username}`, time, friend),
+    client.zadd(`friendList:${friend}`, time, username),
+    client.publish(`pubsub:${username}`, JSON.stringify({
+      type: 'New Friend',
+      friend: friend
+    })),
+    client.publish(`pubsub:${friend}`, JSON.stringify({
+      type: 'New Friend',
+      friend: username
+    }))
   ]);
+}
+
+const declineFriendRequest = ({ username, friend }) => {
+  return Promise.all([
+    client.zrem(`friendRequest:in:${username}`, friend),
+    client.zrem(`friendRequest:out:${friend}`, username)
+  ]);
+}
+
+const addFriendRequest = ({ username, friend , time }) => {
+  console.log(`ADD_FRIEND_REQUEST: ${username}, ${friend}`);
+  return client
+    .zscore(`friendRequest:in:${username}`, friend)
+    .then((o) => {
+      if (o !== null) {
+        return acceptFriendRequest({ username, friend, time });
+      } else {
+        return Promise.all([
+          client.zadd(`friendRequest:out:${username}`, time, friend),
+          client.zadd(`friendRequest:in:${friend}`, time, username),
+          client.publish(`pubsub:${friend}`, JSON.stringify({
+            type: 'New Friend Request',
+            friend: username
+          }))
+        ]);
+      }
+    });
+}
+
+const getFriendList = (username) => {
+  return client.zrange(`friendList:${username}`, 0, -1);
 }
 
 const getFriendRequest = (username) => {
   return client.zrange(`friendRequest:in:${username}`, 0, -1);
 }
 
-export default { client, addNewUser, checkCredentials, addFriendRequest, isExistingUsername, isExistingEmail, getFriendRequest };
+export default { addNewUser, checkCredentials, addFriendRequest, isExistingUsername, isExistingEmail, getFriendRequest, getFriendList, acceptFriendRequest, declineFriendRequest };

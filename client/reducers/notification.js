@@ -11,6 +11,7 @@ const notification = (state = {
         data: action.data,
         success: action.success
       };
+    case 'LOGOUT_SUCCESSFUL':
     case 'CLEAR_NOTIFICATION':
       return {
         ...state,

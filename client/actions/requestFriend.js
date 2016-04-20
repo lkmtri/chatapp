@@ -24,4 +24,40 @@ const requestFriend = (friend) => {
   }
 }
 
-export default requestFriend;
+const acceptFriendRequest = (friend) => {
+  return (dispatch) => {
+    const d = new Date();
+    const time = d.getTime();
+    request
+      .post('/acceptFriendRequest')
+      .send({ token: localStorage.token, friend, time })
+      .end((err, res) => {
+        // console.log(res);
+        if (res.body.success) {
+          dispatch({
+            type: 'REMOVE_FRIEND_REQUEST_ITEM',
+            friend
+          });
+        }
+      });
+  }
+}
+
+const declineFriendRequest = (friend) => {
+  return (dispatch) => {
+    request
+      .post('/declineFriendRequest')
+      .send({ token: localStorage.token, friend})
+      .end((err, res) => {
+        // console.log(res);
+        if (res.body.success) {
+          dispatch({
+            type: 'REMOVE_FRIEND_REQUEST_ITEM',
+            friend
+          });
+        }
+      });
+  }
+}
+
+export default { requestFriend, acceptFriendRequest, declineFriendRequest };

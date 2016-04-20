@@ -19,6 +19,7 @@ module.exports = {
             plugins: ['transform-decorators']
           }
         },
+        // { test: /\.css$/, loader: "style-loader!css-loader" }
         {
           test: /\.css$/,
           loaders: [
