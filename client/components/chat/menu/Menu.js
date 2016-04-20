@@ -5,6 +5,7 @@ import Logout from './Logout';
 import AddFriend from './AddFriend';
 import PrintStore from './PrintStore';
 import Friends from './Friends';
+import Message from './Message';
 
 class Menu extends Component {
   render() {
@@ -17,7 +18,7 @@ class Menu extends Component {
           <Logout>Log out</Logout>
           <AddFriend/>
           <Friends/>
-          <PrintStore/>
+          <Message/>
         </div>
       </div>
     );

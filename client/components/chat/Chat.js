@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import MessageInput from './chatPanel/MessageInput';
 import styles from '../../style/index.css';
 import Menu from './menu/Menu';
 import Search from './components/Search';
-import MessageList from './chatPanel/MessageList';
+import MessageList from './messages/MessageList';
 import Notification from './components/Notification';
 import FriendManager from './friends/FriendManager';
 
@@ -13,7 +14,12 @@ class Chat extends Component {
       <div className = {styles.chat}>
         <div className = {styles.chatLeft}>
           <Menu/>
-          <FriendManager/>
+          { this.props.view === 'friend' ? (
+              <FriendManager/>
+            ) : (
+              <MessageList/>
+            )
+          }
         </div>
         <div className = {styles.chatRight}>
           <Notification/>
@@ -27,5 +33,20 @@ class Chat extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    view: state.view
+  };
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {};
+}
+
+Chat = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Chat);
 
 export default Chat;

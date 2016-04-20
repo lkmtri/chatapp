@@ -3,15 +3,15 @@ import { connect } from 'react-redux';
 import styles from '../../../style/menuIcon.css';
 import view from '../../../actions/view';
 
-class Friends extends Component {
+class Message extends Component {
   render() {
     return (
-      <i className = { 'users icon ' + styles.menuIcon } onClick = { this.onClick }/>
+      <i className = { 'mail outline icon ' + styles.menuIcon } onClick = { this.onClick }/>
     );
   }
 
   onClick = () => {
-    this.props.dispatch(view.activateFriendView());
+    this.props.dispatch(view.activateMessageView());
   }
 }
 
@@ -25,9 +25,9 @@ const mapDispatchToProps = (dispatch) => {
   };
 }
 
-Friends = connect(
+Message = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Friends);
+)(Message);
 
-export default Friends;
+export default Message;

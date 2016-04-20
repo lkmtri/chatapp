@@ -7,14 +7,15 @@ const messageList = (state = {
   switch(action.type) {
     case 'INITIALIZE_MESSAGE_LIST':
       const mesList = [];
-      action.messageList.forEach((e) => {
+      for (let i = action.messageList.length - 1; i >= 0; i--) {
+        let e = action.messageList[i];
         e.lastMessage = JSON.parse(e.message[e.message.length - 1]);
         let mes = e.message.map((m) => {
           return JSON.parse(m);
         });
         e.message = mes;
         mesList.push(e);
-      });
+      }
       return {
         ...state,
         messages: mesList

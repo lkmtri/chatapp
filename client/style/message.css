@@ -1,0 +1,56 @@
+.message {
+  cursor: pointer;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  padding: 10px;
+  flex-direction: row;
+  border-bottom: 1px #dedede solid;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.messageSelected {
+  cursor: pointer;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  padding: 10px;
+  flex-direction: row;
+  border-bottom: 1px #dedede solid;
+  background-color: #dedede;
+}
+
+.message:hover {
+  background-color: #ebebeb;
+}
+
+.avatar {
+  width: 40px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  background-color: #cecece;
+}
+
+.content {
+  padding-left: 10px;
+  flex-grow: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.friend {
+  font-weight: bold;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+
+.lastMessage {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+
+

@@ -5,9 +5,11 @@ import notification from './notification';
 import friendRequestList from './friendRequestList';
 import friendList from './friendList';
 import messageList from './messageList';
+import view from './view';
 
 const chatApp = combineReducers({
   user,
+  view,
   friendRequestList,
   signUp,
   notification,

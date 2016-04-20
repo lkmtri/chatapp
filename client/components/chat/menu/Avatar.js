@@ -3,6 +3,7 @@ require('identicon.js');
 import { connect } from 'react-redux';
 import Image from '../components/Image';
 import styles from '../../../style/index.css';
+import PrintStore from './PrintStore';
 
 class Avatar extends Component {
   render() {
@@ -13,6 +14,7 @@ class Avatar extends Component {
         <Image mode = 'fit' width = { 49 } height = { 49 } src = { 'data::image/png;base64,' + avatar }/>
         <div style = {{ paddingLeft: '10px', fontWeight: 'bold', fontSize: '16px' }}>
           { this.props.user.username }
+          <PrintStore/>
         </div>
       </div>
     );
