@@ -5,7 +5,10 @@ import styles from '../../../style/menuIcon.css';
 class PrintStore extends Component {
   render() {
     return (
-      <i className = { 'print icon ' + styles.menuIcon } onClick = {this.onClick}/>
+      <div onClick = { this.onClick }>
+        { this.props.children }
+      </div>
+
     );
   }
 
@@ -13,6 +16,8 @@ class PrintStore extends Component {
     console.log(this.props.state);
   }
 }
+
+// <i className = { 'print icon ' + styles.menuIcon } onClick = {this.onClick}/>
 
 const mapStateToProps = (state) => {
   return {

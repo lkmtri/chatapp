@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Message from './Message';
 import { connect } from 'react-redux';
+import styles from '../../../style/message.css';
 
 class MessageList extends Component {
   constructor(props) {
@@ -10,6 +11,9 @@ class MessageList extends Component {
   render() {
     return (
       <div>
+        <div className = { styles.messageHeader }>
+          Messages
+        </div>
         {
           this.props.messageList.map((e) => {
             return (

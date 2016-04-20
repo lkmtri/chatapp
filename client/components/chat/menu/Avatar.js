@@ -13,8 +13,9 @@ class Avatar extends Component {
       <div className = { styles.menuLeft }>
         <Image mode = 'fit' width = { 49 } height = { 49 } src = { 'data::image/png;base64,' + avatar }/>
         <div style = {{ paddingLeft: '10px', fontWeight: 'bold', fontSize: '16px' }}>
-          { this.props.user.username }
-          <PrintStore/>
+          <PrintStore>
+            { this.props.user.username }
+          </PrintStore>
         </div>
       </div>
     );

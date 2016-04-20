@@ -85,6 +85,15 @@ body {
   flex-grow: 1;
 }
 
+.chatHeader {
+  height: 70px;
+  border-bottom: 1px #dedede solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
 .message {
   flex-grow: 1;
 }

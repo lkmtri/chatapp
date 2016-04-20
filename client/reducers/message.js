@@ -16,7 +16,7 @@ const message = (state = {
         lastMessage: {
           type: action.type,
           message: action.message,
-          time: action.time
+          time: action.time,
         },
         message: [ ...state.message, messageContent ]
       };

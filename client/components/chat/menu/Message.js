@@ -6,7 +6,7 @@ import view from '../../../actions/view';
 class Message extends Component {
   render() {
     return (
-      <i className = { 'mail outline icon ' + styles.menuIcon } onClick = { this.onClick }/>
+      <i className = { 'mail square icon ' + styles.menuIcon } onClick = { this.onClick }/>
     );
   }
 

@@ -6,7 +6,7 @@ import view from '../../../actions/view';
 class Friends extends Component {
   render() {
     return (
-      <i className = { 'users icon ' + styles.menuIcon } onClick = { this.onClick }/>
+      <i className = { 'user icon ' + styles.menuIcon } onClick = { this.onClick }/>
     );
   }
 
