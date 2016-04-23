@@ -9,6 +9,11 @@
   margin-right: 10px!important;
 }
 
+.menuIconHidden {
+  display: none;
+  visibility: hidden;
+}
+
 .menuIcon:hover {
   color: #000000;
   transform: scale(1.1);

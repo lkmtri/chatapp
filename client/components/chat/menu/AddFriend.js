@@ -22,7 +22,7 @@ class AddFriend extends Component {
           header = 'Add a Friend'
           content = {
             <div className = 'ui fluid input'>
-              <input type = 'text' placeholder = 'Enter an username...' value = { this.state.friend } onChange = { this.onChange }/>
+              <input type = 'text' placeholder = 'Enter an username...' value = { this.state.friend } onChange = { this.onChange } onKeyPress = { this.onKeyPress }/>
             </div>
           }
           actions = {
@@ -37,8 +37,15 @@ class AddFriend extends Component {
     );
   }
 
-  sendRequest = (e) => {
-    e.preventDefault();
+  onKeyPress = (e) => {
+    e.persist();
+    if (e.key === 'Enter') {
+      this.closeModal();
+      this.sendRequest();
+    }
+  }
+
+  sendRequest = () => {
     if (this.state.friend !== '') {
       this.props.dispatch(request.requestFriend(this.state.friend));
     }
@@ -48,6 +55,13 @@ class AddFriend extends Component {
     e.preventDefault();
     this.setState({
       friend: e.target.value
+    });
+  }
+
+  closeModal = () => {
+    this.setState({
+      friend: '',
+      openModal: 'hide'
     });
   }
 

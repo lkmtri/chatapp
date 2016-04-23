@@ -1,0 +1,33 @@
+
+
+.singleMessageContainer {
+  width: 100%;
+  margin-bottom: 3px;
+  display: flex;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.empty {
+  flex-grow: 1;
+}
+
+.singleMessage {
+  width: 300px;
+  padding-left: 17px;
+  padding-right: 17px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-radius: 10px;
+}
+
+.in {
+  background-color: #ebebeb;
+}
+
+.out {
+  background-color: #ebebeb;
+}

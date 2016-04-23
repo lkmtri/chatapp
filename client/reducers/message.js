@@ -1,8 +1,9 @@
-const message = (state = {
-  friend: '',
+import Immutable from 'immutable';
+
+const message = (state = Immutable.Map({
   lastMessage: {},
-  message: []
-}, action) => {
+  message: Immutable.List.of()
+}), action) => {
   switch(action.type) {
     case 'MESSAGE_IN':
     case 'MESSAGE_OUT':
@@ -11,15 +12,15 @@ const message = (state = {
         message: action.message,
         time: action.time
       };
-      return {
-        ...state,
-        lastMessage: {
-          type: action.type,
-          message: action.message,
-          time: action.time,
-        },
-        message: [ ...state.message, messageContent ]
-      };
+      const lastMes = action.message.length > 40 ? action.message.substring(0, 40) + ' ..' : action.message;
+      // console.log(state);
+      const lastMessage = state.set('lastMessage', {
+        type: action.type,
+        message: lastMes,
+        time: action.time
+      });
+      const newMessage = lastMessage.set('message', state.get('message').concat(messageContent));
+      return newMessage;
     default:
       return state;
   }

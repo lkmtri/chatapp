@@ -14,7 +14,7 @@ class ChatHeader extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    activeChat: state.messageList.active
+    activeChat: state.messageList.get('active')
   };
 };
 

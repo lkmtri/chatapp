@@ -16,12 +16,8 @@ class Index extends Component {
       <div>
         { this.props.user.status === 'LOGIN_SUCCESSFUL' ? (
           <div className = { styles.page }>
-            <div className = { styles.pageLeft }>
-            </div>
             <div className = { styles. pageMid }>
               <Chat/>
-            </div>
-            <div className = { styles.pageRight }>
             </div>
           </div>
         ) : (

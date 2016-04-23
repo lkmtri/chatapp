@@ -9,20 +9,22 @@ class MessageList extends Component {
   }
 
   render() {
+    const messageList = this.props.messageList.get('messages');
+    const selected = this.props.messageList.get('active');
     return (
       <div>
         <div className = { styles.messageHeader }>
           Messages
         </div>
         {
-          this.props.messageList.map((e) => {
+          messageList.keySeq().map((e) => {
             return (
               <Message
-                friend = { e.friend }
-                lastMessage = { e.lastMessage.message }
-                key = { e.friend }
-                changeActiveChat = { this.changeActiveChat(e.friend) }
-                selected = { this.props.selected === e.friend ? true : false }
+                friend = { e }
+                lastMessage = { messageList.get(e).get('lastMessage').message }
+                key = { e }
+                changeActiveChat = { this.changeActiveChat(e) }
+                selected = { this.props.selected === e ? true : false }
               />
             );
           })
@@ -43,8 +45,7 @@ class MessageList extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    selected: state.messageList.active,
-    messageList: state.messageList.messages
+    messageList: state.messageList
   };
 }
 

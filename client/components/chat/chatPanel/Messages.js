@@ -4,20 +4,13 @@ import Message from './Message';
 
 class Messages extends Component {
   render() {
-    console.log(this.props.messageList);
-    const { active, messages } = this.props.messageList;
-    let displayMessages = [];
-    for (let i = 0; i < messages.length; i++) {
-      if (messages[i].friend === active) {
-        displayMessages = messages[i].message;
-        break;
-      }
-    }
+    const active = this.props.messageList.get('active');
+    const messages = active === '' ? [] : this.props.messageList.get('messages').get(active).get(`message`);
     return (
       <div>
         {
-          displayMessages.map((e) => {
-            return <Message type = { e.type } message = { e.message } time = { e.time }/>
+          messages.map((e) => {
+            return <Message type = { e.type } message = { e.message } time = { e.time } key = { e.time }/>
           })
         }
       </div>

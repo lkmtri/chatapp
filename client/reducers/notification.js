@@ -1,3 +1,5 @@
+import Immutable from 'immutable';
+
 const notification = (state = {
   message: '',
   data: '',

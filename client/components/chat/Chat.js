@@ -7,6 +7,7 @@ import FriendManager from './friends/FriendManager';
 import ChatPanel from './chatPanel/ChatPanel';
 
 class Chat extends Component {
+
   render() {
     return (
       <div className = {styles.chat}>
