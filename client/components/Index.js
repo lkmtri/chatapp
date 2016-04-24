@@ -28,7 +28,7 @@ class Index extends Component {
   }
 
   componentWillMount() {
-    console.log('index componentWillMount');
+    // console.log('index componentWillMount');
     this.props.dispatch(fetchData.fetch());
   }
 }

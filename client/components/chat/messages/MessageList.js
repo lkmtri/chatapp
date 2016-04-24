@@ -9,8 +9,19 @@ class MessageList extends Component {
   }
 
   render() {
-    const messageList = this.props.messageList.get('messages');
+    const messageList = this.props.messageList.get('messages').sort((a, b) => {
+      const aLastMes = a.get('lastMessage');
+      const bLastMes = b.get('lastMessage');
+      if (aLastMes.time > bLastMes.time) {
+        return -1;
+      } else if (aLastMes.time === bLastMes.time) {
+        return 0;
+      } else {
+        return 1;
+      }
+    });
     const selected = this.props.messageList.get('active');
+
     return (
       <div>
         <div className = { styles.messageHeader }>
@@ -24,7 +35,7 @@ class MessageList extends Component {
                 lastMessage = { messageList.get(e).get('lastMessage').message }
                 key = { e }
                 changeActiveChat = { this.changeActiveChat(e) }
-                selected = { this.props.selected === e ? true : false }
+                selected = { selected === e ? true : false }
               />
             );
           })
