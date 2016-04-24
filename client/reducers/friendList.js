@@ -8,7 +8,7 @@ const friendList = (state = Immutable.List.of(), action) => {
     case 'NEW_FRIEND':
       return state.push(action.friend);
     case 'LOGOUT_SUCCESSFUL':
-      return [];
+      return Immutable.List.of();
     default:
       return state;
   }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-require('identicon.js');
+const Identicon = require('identicon.js');
 import { connect } from 'react-redux';
 import Image from '../components/Image';
 import styles from '../../../style/index.css';
@@ -11,11 +11,9 @@ class Avatar extends Component {
     const avatar = new Identicon(this.props.user.username, 49).toString();
     return (
       <div className = { styles.menuLeft }>
-        <Image mode = 'fit' width = { 49 } height = { 49 } src = { 'data::image/png;base64,' + avatar }/>
+        <PrintStore><Image mode = 'fit' width = { 49 } height = { 49 } src = { 'data::image/png;base64,' + avatar }/></PrintStore>
         <div style = {{ paddingLeft: '10px', fontWeight: 'bold', fontSize: '16px' }}>
-          <PrintStore>
             { this.props.user.username }
-          </PrintStore>
         </div>
       </div>
     );

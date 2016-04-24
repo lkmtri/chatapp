@@ -14,10 +14,14 @@ class PrintStore extends Component {
 
   onClick = () => {
     const state = this.props.state;
-    state.messageList = state.messageList.toJS();
-    state.friendList = state.friendList.toJS();
-    state.friendRequestList = state.friendRequestList.toJS();
-    console.log(this.props.state);
+    const messageList = state.messageList.toJS();
+    const friendList = state.friendList.toJS();
+    const friendRequestList = state.friendRequestList.toJS();
+    console.log({
+      messageList,
+      friendList,
+      friendRequestList
+    });
   }
 }
 

@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Message from './Message';
+import Immutable from 'immutable';
 
 class Messages extends Component {
   render() {
     const active = this.props.messageList.get('active');
-    const messages = active === '' ? [] : this.props.messageList.get('messages').get(active).get(`message`);
+    console.log(this.props.messageList.toJS());
+    console.log(active)
+    const messageList = active === '' ? Immutable.Map({}) : this.props.messageList.get('messages');//.get(active).get(`message`);
+    const messages = messageList.get(active) === undefined ? [] : messageList.get(active).get('message'); 
     return (
       <div>
         {
