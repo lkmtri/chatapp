@@ -20,6 +20,7 @@ const messageList = (state = Immutable.Map({
       const messages = action.messageList.reduce((prev, e) => {
         return prev.set(e.friend, composeMessage(e));
       }, state.get('messages'));
+      console.log(messages.toJS());
       return state.set('messages', messages);
     case 'SET_ACTIVE_CHAT':
       return state.set('active', action.friend);
@@ -30,7 +31,7 @@ const messageList = (state = Immutable.Map({
     case 'LOGOUT_SUCCESSFUL':
       return Immutable.Map({
         active: '',
-        messages: Immutable.List.of()
+        messages: Immutable.Map({})
       });
     default:
       return state;
