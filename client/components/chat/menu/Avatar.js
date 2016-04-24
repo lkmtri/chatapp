@@ -11,7 +11,9 @@ class Avatar extends Component {
     const avatar = new Identicon(this.props.user.username, 49).toString();
     return (
       <div className = { styles.menuLeft }>
-        <PrintStore><Image mode = 'fit' width = { 49 } height = { 49 } src = { 'data::image/png;base64,' + avatar }/></PrintStore>
+        <PrintStore>
+          <Image mode = 'fit' width = { 49 } height = { 49 } src = { 'data::image/png;base64,' + avatar }/>
+        </PrintStore>
         <div style = {{ paddingLeft: '10px', fontWeight: 'bold', fontSize: '16px' }}>
             { this.props.user.username }
         </div>

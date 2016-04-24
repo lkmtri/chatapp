@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import user from '../../actions/users';
+import PrintStore from '../chat/menu/PrintStore';
 
 class Login extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class Login extends Component {
       <div>
         <form className = 'ui form' onSubmit = {this.onSubmit}>
           <div className = 'field'>
-            <label>Username:</label>
+            <label><PrintStore>Username:</PrintStore></label>
             <div className = 'ui left icon input'>
               <input placeholder = 'Username' value = { this.state.username } onChange = { this.onChangeUsername }/>
               <i className= 'user icon'></i>

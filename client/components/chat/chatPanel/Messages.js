@@ -12,7 +12,7 @@ class Messages extends Component {
       <div>
         {
           messages.map((e) => {
-            return <Message type = { e.type } message = { e.message } time = { e.time } key = { e.time }/>
+            return <Message type = { e.type } message = { e.message } time = { e.time } key = { e.type + ' ' + e.time }/>
           })
         }
       </div>
