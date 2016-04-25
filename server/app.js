@@ -310,12 +310,14 @@ io.on('connection', (socket) => {
     });
     redisCli.on('message', (channel, message) => {
       if (channel === `pubsub:${data.username}`) {
+        console.log(channel + ': ' + message);
         io.to(socket.id).emit('message', message);
       }
     });
   });
 
   socket.on('registerLogout', (data) => {
+    console.log('registerLogout:' + data.username);
     redisCli.unsubscribe(`pubsub:${data.username}`).then(o => {
       io.to(socket.id).emit('logoutSuccessful', data);
     });

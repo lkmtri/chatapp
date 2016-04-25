@@ -37,7 +37,7 @@ class Logout extends Component {
 
   logout = (e) => {
     e.preventDefault();
-    this.props.dispatch(user.logout());
+    this.props.dispatch(user.logout(this.props.user));
   }
 
   onClick = (e) => {

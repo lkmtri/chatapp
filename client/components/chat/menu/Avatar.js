@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-const Identicon = require('identicon.js');
+require('identicon.js');
 import { connect } from 'react-redux';
 import Image from '../components/Image';
 import styles from '../../../style/index.css';

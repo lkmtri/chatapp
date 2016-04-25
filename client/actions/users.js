@@ -98,9 +98,9 @@ const successfulLogout = () => {
   };
 }
 
-const logout = () => {
+const logout = (user) => {
   return (dispatch) => {
-    socket.emit('registerLogout', {});
+    socket.emit('registerLogout', user);
     socket.once('logoutSuccessful', () => {
       // TODO: Delete localStorage
       localStorage.removeItem('token');
