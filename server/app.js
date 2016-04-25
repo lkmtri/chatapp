@@ -170,6 +170,28 @@ app.post('/newMessage', (req, res) => {
   });
 });
 
+app.post('/deleteMessage', (req, res) => {
+  const token = req.body.token;
+  jwt.verify(token, jwtKey, (err, decoded) => {
+    if (!err) {
+      message
+        .deleteMessage(decoded.username, req.body.friend)
+        .then((o) => {
+          res.json({
+            success: true
+          });
+        })
+        .catch((error) => {
+          // console.log(error);
+          res.json({
+            success: false,
+            error
+          });
+        });
+    }
+  });
+});
+
 app.post('/signup', (req, res) => {
   const newUser = req.body;
 

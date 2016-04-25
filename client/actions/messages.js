@@ -37,5 +37,22 @@ export const composeMessage = (messageTo, message) => {
   };
 };
 
-export default { composeMessage };
+const deleteMessage = (friend) => {
+  return (dispatch) => {
+    request
+      .post('/deleteMessage')
+      .send({ token: localStorage.token, friend })
+      .end((err, res) => {
+        console.log(res.body);
+        if (res.body.success) {
+          dispatch({
+            type: 'DELETE_CONVERSATION',
+            friend
+          });
+        }
+      });
+  }
+}
+
+export default { composeMessage, deleteMessage };
 

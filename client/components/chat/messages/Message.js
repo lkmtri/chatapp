@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styles from '../../../style/message.css';
+import iconStyle from '../../../style/menuIcon.css';
 
 class Message extends Component {
   render() {
@@ -14,6 +15,9 @@ class Message extends Component {
           <div className = { styles.lastMessage }>
             {this.props.lastMessage}
           </div>
+        </div>
+        <div className = { styles.removeButton }>
+          <i className = { 'trash outline icon ' + iconStyle.menuIcon } onClick = { this.props.deleteMessage }/>
         </div>
       </div>
     );

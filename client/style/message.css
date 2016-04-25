@@ -58,6 +58,12 @@
   align-items: center;
 }
 
+.removeButton {
+  width: 30px;
+  display: flex;
+  align-items: center;
+}
+
 .lastMessage {
   flex-grow: 1;
   display: flex;

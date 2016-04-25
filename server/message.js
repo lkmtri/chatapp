@@ -42,15 +42,23 @@ const loadMessage = (username) => {
     .then(async function(chats) {
       const messageList = [];
       for (let i = 0; i < chats.length; i++) {
-        let friend = chats[i];
-        let message = await client.zrange(`chat:${username}:${friend}`, 0, -1);
+        const friend = chats[i];
+        const messages = await client.zrange(`chat:${username}:${friend}`, 0, -1);
         messageList.push({
           friend,
-          message
+          message: messages
         });
+        // messageList[friend] = messages;
       };
       return messageList;
     });
 }
 
-export default { newMessage, loadMessage };
+const deleteMessage = (username, friend) => {
+  return Promise.all([
+    client.zrem(`chat:${username}`, friend),
+    client.del(`chat:${username}:${friend}`)
+  ]);
+}
+
+export default { newMessage, loadMessage, deleteMessage };
