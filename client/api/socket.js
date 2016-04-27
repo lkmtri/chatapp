@@ -1,6 +1,7 @@
 import io from 'socket.io-client';
 import { store } from '../app';
 import action from '../actions/socket';
+import request from 'superagent';
 
 const socket = io('');
 
@@ -19,12 +20,20 @@ socket.on('message', (d) => {
       store.dispatch(action.newFriendRequest(data.friend));
       return;
     case 'Message In':
-      console.log(d);
-      store.dispatch(action.messageIn(data.from, data.message, data.time));
+      request
+        .post('/messageReceived')
+        .send({ ...data, token: localStorage.token })
+        .end((err, res) => {});
+      store.dispatch(action.messageIn(data));
       return;
     case 'Message Out':
-      console.log(d);
-      store.dispatch(action.messageOut(data.to, data.message, data.time));
+      store.dispatch(action.messageOut(data));
+      return;
+    case 'Message Delivered':
+      store.dispatch(action.messageDelivered(data));
+      return;
+    case 'Message Read':
+      store.dispatch(action.messageRead(data));
       return;
     default:
       return;

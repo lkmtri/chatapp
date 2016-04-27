@@ -12,22 +12,42 @@ const newFriendRequest = (friend) => {
   };
 }
 
-const messageIn = (friend, message, time) => {
+const messageIn = ({ friend, message, time, status }) => {
   return {
     type: 'MESSAGE_IN',
     friend,
     message,
-    time
+    time,
+    status
   };
 }
 
-const messageOut = (friend, message, time) => {
+const messageOut = ({ friend, message, time, status }) => {
   return {
     type: 'MESSAGE_OUT',
+    friend,
+    message,
+    time,
+    status
+  };
+}
+
+const messageDelivered = ({ friend, message, time }) => {
+  return {
+    type: 'MESSAGE_DELIVERED',
     friend,
     message,
     time
   };
 }
 
-export default { newFriend, newFriendRequest, messageIn, messageOut };
+const messageRead = ({ friend, message, time }) => {
+  return {
+    type: 'MESSAGE_OUT_READ',
+    friend,
+    message,
+    time
+  };
+}
+
+export default { newFriend, newFriendRequest, messageIn, messageOut, messageDelivered, messageRead };

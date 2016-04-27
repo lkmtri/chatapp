@@ -25,7 +25,6 @@ const messageList = (state = Immutable.Map({
       return state.set('active', action.friend);
     case 'DELETE_CONVERSATION':
       const newMessageList = state.get('messages').delete(action.friend);
-      console.log('deleting convo: ' + action.friend);
       const active = state.get('active');
       let newState;
       if (active === action.friend) {
@@ -36,6 +35,9 @@ const messageList = (state = Immutable.Map({
       return newState.set('messages', newMessageList);
     case 'MESSAGE_IN':
     case 'MESSAGE_OUT':
+    case 'MESSAGE_DELIVERED':
+    case 'MESSAGE_IN_READ':
+    case 'MESSAGE_OUT_READ':
       const updatedMessages = state.get('messages').set(action.friend, message(state.get('messages').get(action.friend), action));
       return state.set('messages', updatedMessages);
     case 'LOGOUT_SUCCESSFUL':

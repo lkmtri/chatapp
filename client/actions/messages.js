@@ -31,7 +31,7 @@ export const composeMessage = (messageTo, message) => {
       .send(messageData)
       .end((err, res) => {
         if (res.body.success) {
-          console.log('message sent');
+          // console.log('message sent');
         }
       });
   };
@@ -43,7 +43,7 @@ const deleteMessage = (friend) => {
       .post('/deleteMessage')
       .send({ token: localStorage.token, friend })
       .end((err, res) => {
-        console.log(res.body);
+        // console.log(res.body);
         if (res.body.success) {
           dispatch({
             type: 'DELETE_CONVERSATION',
@@ -54,5 +54,23 @@ const deleteMessage = (friend) => {
   }
 }
 
-export default { composeMessage, deleteMessage };
+const messageRead = ({ friend, message, time }) => {
+  return (dispatch) => {
+    request
+      .post('/messageRead')
+      .send({ token: localStorage.token, friend, message, time })
+      .end((err, res) => {
+        if (res.body.success) {
+          dispatch({
+            type: ' MESSAGE_IN_READ',
+            friend,
+            message,
+            time
+          });
+        }
+      });
+  }
+}
+
+export default { composeMessage, deleteMessage, messageRead };
 

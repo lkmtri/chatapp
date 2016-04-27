@@ -1,11 +1,9 @@
-
-
 .singleMessageContainer {
   width: 100%;
   margin-bottom: 3px;
   display: flex;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding-left: 30px;
+  padding-right: 30px;
 }
 
 .empty {
@@ -13,7 +11,7 @@
 }
 
 .singleMessage {
-  width: 300px;
+  max-width: 400px;
   padding-left: 17px;
   padding-right: 17px;
   padding-top: 7px;
@@ -29,5 +27,16 @@
 }
 
 .out {
-  background-color: #ebebeb;
+  color: white;
+  background-color: #fbbd08;
+}
+
+.outDelivered {
+  color: white;
+  background-color: #b5cc18;
+}
+
+.outRead {
+  color: white;
+  background-color: #00b5ad;
 }

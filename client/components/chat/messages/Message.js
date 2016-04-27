@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styles from '../../../style/message.css';
 import iconStyle from '../../../style/menuIcon.css';
+import messages from '../../../actions/messages';
 
 class Message extends Component {
   render() {
@@ -13,7 +14,7 @@ class Message extends Component {
             {this.props.friend}
           </div>
           <div className = { styles.lastMessage }>
-            {this.props.lastMessage}
+            { this.props.lastMessage }
           </div>
         </div>
         <div className = { styles.removeButton }>

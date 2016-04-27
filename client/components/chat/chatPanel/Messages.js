@@ -7,12 +7,12 @@ class Messages extends Component {
   render() {
     const active = this.props.messageList.get('active');
     const messageList = active === '' ? Immutable.Map({}) : this.props.messageList.get('messages');//.get(active).get(`message`);
-    const messages = messageList.get(active) === undefined ? [] : messageList.get(active).get('message'); 
+    const messages = messageList.get(active) === undefined ? [] : messageList.get(active).get('message');
     return (
       <div>
         {
           messages.map((e) => {
-            return <Message type = { e.type } message = { e.message } time = { e.time } key = { e.type + ' ' + e.time }/>
+            return <Message type = { e.type } friend = { active } message = { e.message } time = { e.time } key = { e.type + ' ' + e.time } status = { e.status } dispatch = { this.props.dispatch }/>
           })
         }
       </div>

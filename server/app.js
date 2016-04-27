@@ -170,6 +170,44 @@ app.post('/newMessage', (req, res) => {
   });
 });
 
+app.post('/messageReceived', (req, res) => {
+  const token = req.body.token;
+  console.log('messageReceived');
+  jwt.verify(token, jwtKey, (err, decoded) => {
+    if (!err) {
+      const messageReceived = {
+        from: req.body.friend,
+        to: decoded.username,
+        message: req.body.message,
+        time: req.body.time
+      };
+      // console.log(messageReceived);
+      message.markReceived(messageReceived);
+      res.json({
+        success: true
+      });
+    }
+  })
+});
+
+app.post('/messageRead', (req, res) => {
+  const token = req.body.token;
+  jwt.verify(token, jwtKey, (err, decoded) => {
+    if (!err) {
+      const messageRead = {
+        from: req.body.friend,
+        message: req.body.message,
+        to: decoded.username,
+        time: req.body.time
+      };
+      message.markRead(messageRead);
+      res.json({
+        success: true
+      });
+    }
+  });
+});
+
 app.post('/deleteMessage', (req, res) => {
   const token = req.body.token;
   jwt.verify(token, jwtKey, (err, decoded) => {

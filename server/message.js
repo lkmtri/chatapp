@@ -12,28 +12,84 @@ const newChat = (from, to, time) => {
         return client.zadd(`chat:${from}`, time, to);
       }
     })
-
 }
 
 const newMessage = ({ from, to, message, time }) => {
   return Promise.all(
     newChat(from, to, time),
     newChat(to, from, time),
-    client.zadd(`chat:${from}:${to}`, time, JSON.stringify({ type: 'out', message, time })),
-    client.zadd(`chat:${to}:${from}`, time, JSON.stringify({ type: 'in', message, time })),
+    client.zadd(`chat:${from}:${to}`, time, JSON.stringify({ type: 'out', status: 'sent', message, time })),
+    client.zadd(`chat:${to}:${from}`, time, JSON.stringify({ type: 'in', status: 'received', message, time })),
     client.publish(`pubsub:${from}`, JSON.stringify({
       type: 'Message Out',
-      to,
+      friend: to,
       message,
-      time
+      time,
+      status: 'sent'
     })),
     client.publish(`pubsub:${to}`, JSON.stringify({
       type: 'Message In',
-      from,
+      friend: from,
+      message,
+      time,
+      status: 'received'
+    }))
+  );
+}
+
+const markReceived = ({ from, to, message, time }) => {
+  return Promise.all([
+    client.zrem(`chat:${from}:${to}`, JSON.stringify({ type: 'out', status: 'sent', message, time })),
+    client.zadd(`chat:${from}:${to}`, time, JSON.stringify({ type: 'out', status: 'delivered', message, time })),
+    client.publish(`pubsub:${from}`, JSON.stringify({
+      type: 'Message Delivered',
+      friend: to,
       message,
       time
     }))
-  );
+  ]);
+}
+
+const markRead = ({ from, to, message, time }) => {
+  return Promise.all([
+    client
+      .zrem(`chat:${from}:${to}`, JSON.stringify({ type: 'out', status: 'delivered', message, time }))
+      .then((o) => {
+        if (o === 1) {
+          client.zadd(`chat:${from}:${to}`, time, JSON.stringify({ type: 'out', status: 'read', message, time }));
+          client.publish(`pubsub:${from}`, JSON.stringify({
+            type: 'Message Read',
+            friend: to,
+            message,
+            time
+          }))
+        }
+      }),
+    client.zrem(`chat:${to}:${from}`, JSON.stringify({ type: 'in', status: 'received', message, time })),
+    client.zadd(`chat:${to}:${from}`, time, JSON.stringify({ type: 'in', status: 'read', message, time })),
+
+  ]);
+}
+
+const markReceivedAll = ({ from, to }) => {
+  return client
+    .zrange(`chat:${from}:${to}`, 0, -1)
+    .then((convo) => {
+      convo.forEach((e) => {
+        const mes = JSON.parse(e);
+        if (mes.status === 'sent') {
+          mes.status = 'delivered';
+          client.zrem(`chat:${from}:${to}`, e);
+          client.zadd(`chat:${from}:${to}`, mes.time, JSON.stringify(mes));
+          client.publish(`pubsub:${from}`, JSON.stringify({
+            type: 'Message Delivered',
+            friend: to,
+            message: mes.message,
+            time: mes.time
+          }));
+        }
+      });
+    });
 }
 
 const loadMessage = (username) => {
@@ -43,12 +99,12 @@ const loadMessage = (username) => {
       const messageList = [];
       for (let i = 0; i < chats.length; i++) {
         const friend = chats[i];
+        await markReceivedAll({ from: friend, to: username });
         const messages = await client.zrange(`chat:${username}:${friend}`, 0, -1);
         messageList.push({
           friend,
           message: messages
         });
-        // messageList[friend] = messages;
       };
       return messageList;
     });
@@ -61,4 +117,4 @@ const deleteMessage = (username, friend) => {
   ]);
 }
 
-export default { newMessage, loadMessage, deleteMessage };
+export default { newMessage, loadMessage, deleteMessage, markReceived, markRead };
