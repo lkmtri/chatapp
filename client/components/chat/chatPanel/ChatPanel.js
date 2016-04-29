@@ -12,9 +12,7 @@ class ChatPanel extends Component {
       <div className = {styles.chatRight}>
         <Notification/>
         <ChatHeader/>
-        <div className = {styles.message}>
-          <Messages/>
-        </div>
+        <Messages/>
         <div className = {styles.messageInput}>
           <MessageInput/>
         </div>

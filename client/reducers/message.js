@@ -15,7 +15,7 @@ const message = (state = Immutable.Map({
       };
       const lastMes = action.message.length > 40 ? action.message.substring(0, 40) + ' ..' : action.message;
       const lastMessage = state.set('lastMessage', {
-        type: action.type,
+        type: action.type === 'MESSAGE_IN' ? 'in' : 'out',
         message: lastMes,
         time: action.time
       });
