@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Message from './Message';
 import { connect } from 'react-redux';
 import styles from '../../../style/message.css';
-import messageAction from '../../../actions/messages';
 
 class MessageList extends Component {
   constructor(props) {
@@ -37,7 +36,7 @@ class MessageList extends Component {
                 key = { e }
                 changeActiveChat = { this.changeActiveChat(e) }
                 selected = { selected === e ? true : false }
-                deleteMessage = { this.deleteMessage(e) }
+                unreadCount = { messageList.get(e).get('unreadCount') }
               />
             );
           })
@@ -46,11 +45,7 @@ class MessageList extends Component {
     );
   }
 
-  deleteMessage = (friend) => {
-    return () => {
-      this.props.dispatch(messageAction.deleteMessage(friend));
-    }
-  }
+
 
   changeActiveChat = (friend) => {
     return () => {

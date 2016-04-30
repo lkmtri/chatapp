@@ -42,6 +42,16 @@ body {
   border-right: 1px #dedede solid;
 }
 
+.chatRightEmpty {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 16px;
+  border-right: 1px #dedede solid;
+}
+
 .search {
   height: 50px;
   padding: 5px;
@@ -80,9 +90,25 @@ body {
   height: 70px;
   border-bottom: 1px #dedede solid;
   display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+}
+
+.chatHeaderUsername {
+  font-weight: bold;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
+  flex: 1;
+}
+
+.chatHeaderAction {
+  position: absolute;
+  right: 0px;
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
 
 .message {

@@ -39,6 +39,10 @@ class MessageInput extends Component {
     }
   }
 
+  componentDidMount() {
+    this._input.focus();
+  }
+
   componentDidUpdate() {
     this._input.focus();
   }

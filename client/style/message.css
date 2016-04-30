@@ -58,10 +58,23 @@
   align-items: center;
 }
 
-.removeButton {
+.unreadCountContainer {
   width: 30px;
   display: flex;
   align-items: center;
+  justify-content: center;
+}
+
+.unreadCount {
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  background-color: #cecece;
+  font: bold;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .lastMessage {

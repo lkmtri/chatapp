@@ -21,22 +21,5 @@ class ChatPanel extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    activeChat: state.messageList.get('active')
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    dispatch
-  };
-};
-
-ChatPanel = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ChatPanel);
-
 export default ChatPanel;
 

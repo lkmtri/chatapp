@@ -66,8 +66,7 @@ const markRead = ({ from, to, message, time }) => {
         }
       }),
     client.zrem(`chat:${to}:${from}`, JSON.stringify({ type: 'in', status: 'received', message, time })),
-    client.zadd(`chat:${to}:${from}`, time, JSON.stringify({ type: 'in', status: 'read', message, time })),
-
+    client.zadd(`chat:${to}:${from}`, time, JSON.stringify({ type: 'in', status: 'read', message, time }))
   ]);
 }
 

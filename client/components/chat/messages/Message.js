@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styles from '../../../style/message.css';
-import iconStyle from '../../../style/menuIcon.css';
 import messages from '../../../actions/messages';
 
 class Message extends Component {
@@ -17,9 +16,17 @@ class Message extends Component {
             { this.props.lastMessage }
           </div>
         </div>
-        <div className = { styles.removeButton }>
-          <i className = { 'trash outline icon ' + iconStyle.menuIcon } onClick = { this.props.deleteMessage }/>
-        </div>
+        {
+          this.props.unreadCount > 0 ? (
+            <div className = { styles.unreadCountContainer }>
+              <div className = { styles.unreadCount }>
+                { this.props.unreadCount }
+              </div>
+            </div>
+          ) : (
+            <div></div>
+          )
+        }
       </div>
     );
   }

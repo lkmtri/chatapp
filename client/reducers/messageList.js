@@ -2,13 +2,18 @@ import message from './message';
 import Immutable from 'immutable';
 
 const composeMessage = (mes) => {
+  let unreadCount = 0;
   let message = mes.message.map((m) => {
-    return JSON.parse(m);
+    const mes = JSON.parse(m);
+    if (mes.status !== 'read' && mes.type === 'in') {
+      unreadCount = unreadCount + 1;
+    }
+    return mes;
   });
   let lastMes = message[message.length - 1];
   lastMes.message = lastMes.message.length > 40 ? lastMes.message.substring(0, 40) + ' ..' : lastMes.message;
   message = Immutable.List.of(...message);
-  return Immutable.Map({ lastMessage: lastMes, message });
+  return Immutable.Map({ lastMessage: lastMes, unreadCount, message });
 }
 
 const messageList = (state = Immutable.Map({

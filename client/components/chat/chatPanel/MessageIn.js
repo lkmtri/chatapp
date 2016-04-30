@@ -15,9 +15,7 @@ class MessageIn extends Component {
   }
 
   componentDidMount() {
-    // console.log(this.props.status);
     if (this.props.status === 'received') {
-      // console.log('message read: ' + this.props.friend + ' ' + this.props.children);
       this.props.dispatch(messages.messageRead({
         friend: this.props.friend,
         message: this.props.children,

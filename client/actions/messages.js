@@ -62,7 +62,7 @@ const messageRead = ({ friend, message, time }) => {
       .end((err, res) => {
         if (res.body.success) {
           dispatch({
-            type: ' MESSAGE_IN_READ',
+            type: 'MESSAGE_IN_READ',
             friend,
             message,
             time

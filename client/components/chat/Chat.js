@@ -20,7 +20,15 @@ class Chat extends Component {
             )
           }
         </div>
-        <ChatPanel/>
+        {
+          this.props.active !== '' ? (
+            <ChatPanel/>
+          ) : (
+            <div className = { styles.chatRightEmpty }>
+              Welcome to ChatApp
+            </div>
+          )
+        }
       </div>
     );
   }
@@ -28,7 +36,8 @@ class Chat extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    view: state.view
+    view: state.view,
+    active: state.messageList.get('active')
   };
 }
 

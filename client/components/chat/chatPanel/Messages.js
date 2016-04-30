@@ -45,15 +45,38 @@ class Messages extends Component {
     );
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.state.messageNotification !== nextState.messageNotification) {
+      return true;
+    }
+    const thisActive = this.props.messageList.get('active');
+    const nextActive = nextProps.messageList.get('active');
+    if (thisActive !== nextActive)
+      return true;
+    const prevLast = this.props.messageList.get('messages').get(thisActive).get('message');
+    const nextLast = nextProps.messageList.get('messages').get(nextActive).get('message');
+    const prevLastMes = prevLast.get(prevLast.size - 1);
+    const nextLastMes = nextLast.get(nextLast.size - 1);
+    if (prevLastMes.time !== nextLastMes.time || prevLastMes.status !== nextLastMes.status) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  componentDidMount() {
+    const node = ReactDOM.findDOMNode(this._message);
+    node.scrollTop = this._messageDiv.scrollHeight - this._message.clientHeight;
+  }
+
   componentWillUpdate(nextProps) {
     const nextActive = nextProps.messageList.get('active');
     const thisActive = this.props.messageList.get('active');
+
     if (thisActive === nextActive && thisActive !== '') {
-      // new message
       this.shouldAdjustScroll = this._messageDiv.scrollHeight - this._message.clientHeight - this._message.scrollTop >= 10;
-      const lastMessage = nextProps.messageList.get('messages').get(nextActive).get('lastMessage');
-      // console.log(lastMessage);
-      if (this._messageDiv.scrollHeight - this._message.clientHeight - this._message.scrollTop >= 10 && lastMessage.type === 'in') {
+      const lastMes = nextProps.messageList.get('messages').get(nextActive).get('lastMessage');
+      if (this._messageDiv.scrollHeight - this._message.clientHeight - this._message.scrollTop >= 10 && lastMes.type === 'in') {
         this.state.messageNotification = true;
       } else {
         this.state.messageNotification = false;

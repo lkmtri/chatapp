@@ -2,6 +2,7 @@ import Immutable from 'immutable';
 
 const message = (state = Immutable.Map({
   lastMessage: {},
+  unreadCount: 0,
   message: Immutable.List.of()
 }), action) => {
   switch(action.type) {
@@ -13,8 +14,14 @@ const message = (state = Immutable.Map({
         time: action.time,
         status: action.status
       };
+      let newState;
+      if (action.type === 'MESSAGE_IN') {
+        newState = state.set('unreadCount', state.get('unreadCount') + 1);
+      } else {
+        newState = state;
+      }
       const lastMes = action.message.length > 40 ? action.message.substring(0, 40) + ' ..' : action.message;
-      const lastMessage = state.set('lastMessage', {
+      const lastMessage = newState.set('lastMessage', {
         type: action.type === 'MESSAGE_IN' ? 'in' : 'out',
         message: lastMes,
         time: action.time
@@ -48,9 +55,14 @@ const message = (state = Immutable.Map({
             time: action.time,
             status: 'read'
           });
+          break;
         }
       }
-      return state.set('message', newMes);
+      if (type === 'in') {
+        return state.set('message', newMes).set('unreadCount', 0);
+      } else {
+        return state.set('message', newMes);
+      }
     default:
       return state;
   }
