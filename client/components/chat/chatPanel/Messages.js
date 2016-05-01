@@ -51,10 +51,16 @@ class Messages extends Component {
     }
     const thisActive = this.props.messageList.get('active');
     const nextActive = nextProps.messageList.get('active');
-    if (thisActive !== nextActive)
+    if (thisActive !== nextActive) {
       return true;
+    }
+    const prev = this.props.messageList.get('messages').get(thisActive);
+    if (prev === undefined) {
+      return true;
+    }
     const prevLast = this.props.messageList.get('messages').get(thisActive).get('message');
     const nextLast = nextProps.messageList.get('messages').get(nextActive).get('message');
+
     const prevLastMes = prevLast.get(prevLast.size - 1);
     const nextLastMes = nextLast.get(nextLast.size - 1);
     if (prevLastMes.time !== nextLastMes.time || prevLastMes.status !== nextLastMes.status) {
