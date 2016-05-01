@@ -23,8 +23,9 @@ socket.on('message', (d) => {
       request
         .post('/messageReceived')
         .send({ ...data, token: localStorage.token })
-        .end((err, res) => {});
-      store.dispatch(action.messageIn(data));
+        .end((err, res) => {
+	  store.dispatch(action.messageIn(data));
+	});
       return;
     case 'Message Out':
       store.dispatch(action.messageOut(data));
