@@ -8,16 +8,23 @@
   border-bottom: 1px #dedede solid;
   flex-direction: row;
   transition: background-color 0.4s ease-in-out;
+  align-items: center;
 }
 
 /*.friendItemContainer:hover {
   background-color: #f0f0f0;
 }
 */
+.friendItemAvatar {
+  width: 45;
+  height: 45;
+}
+
 .friendItemUsername {
   flex-grow: 1;
   display: flex;
   align-items: center;
+  padding-left: 10px;
 }
 
 .friendItemMessageIcon {

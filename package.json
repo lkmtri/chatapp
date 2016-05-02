@@ -20,6 +20,7 @@
     "immutable": "^3.7.6",
     "jquery": "^2.2.3",
     "jsonwebtoken": "^5.7.0",
+    "jssha": "^2.0.2",
     "mongodb": "^2.1.7",
     "nodemon": "^1.9.1",
     "react": "^0.14.7",

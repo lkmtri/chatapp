@@ -1,4 +1,6 @@
 /node_modules
+/dist/scripts
+/config
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*

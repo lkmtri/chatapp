@@ -7,6 +7,7 @@
   flex-direction: row;
   border-bottom: 1px #dedede solid;
   transition: background-color 0.2s ease-in-out;
+  align-items: center;
 }
 
 .messageHeader {
@@ -29,6 +30,7 @@
   flex-direction: row;
   border-bottom: 1px #dedede solid;
   background-color: #dedede;
+  align-items: center;
 }
 
 .message:hover {
@@ -36,11 +38,11 @@
 }
 
 .avatar {
-  width: 40px;
-  height: 100%;
+  width: 45px;
+  height: 45px;
   display: flex;
   align-items: center;
-  background-color: #cecece;
+  background-color: white;
 }
 
 .content {
