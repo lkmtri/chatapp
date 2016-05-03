@@ -6,9 +6,15 @@ class FriendList extends Component {
   render() {
     return (
       <div>
+        <div style = {{ padding: '5px', backgroundColor: '#f6f7f8', color: '#bebebe', paddingLeft: '10px' }}>
+          Friends
+        </div>
         {
           this.props.friendList.map((e) => {
-            return <FriendItem key = { e }>{ e }</FriendItem>
+            if (e.match(new RegExp(this.props.searchKey, 'i'))) {
+              return <FriendItem key = { e }>{ e }</FriendItem>;
+            }
+            return null;
           })
         }
       </div>

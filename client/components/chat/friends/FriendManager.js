@@ -1,56 +1,33 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import styles from '../../../style/friendManager.css';
+import styles from '../../../style/friendRequestList.css';
 import RequestList from './RequestList';
 import FriendList from './FriendList';
+import AddFriend from './AddFriend';
 
 class FriendManager extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      friendActive: true,
-      requestActive: false
-    };
   }
 
   render() {
-    const friendActive = this.state.friendActive ? styles.friendMenuLeftSelected : '';
-    const requestActive = this.state.requestActive ? styles.friendMenuRightSelected : '';
     return (
-      <div>
-        <div className = { styles.friendMenuContainer }>
-          <div className = { styles.friendMenuLeft + ' ' + friendActive } onClick = { this.onClick(1) }>Friends</div>
-          <div className = { styles.friendMenuRight + ' ' + requestActive } onClick = { this.onClick(2) }>Requests</div>
+      <div className = { styles.friendRequestContainer }>
+        <div className = { styles.friendRequestHeader }>
+          Friend Requests
+          <div className = { styles.addFriendIcon }>
+            <AddFriend/>
+          </div>
         </div>
-        { this.state.friendActive ?
-          (
-            <FriendList/>
-          ) : (
-            <RequestList/>
-          )
-        }
+        <div className = { styles.scrollableFriendRequestListWrapper }>
+          <div className = { styles.scrollableFriendRequestList }>
+            <div className = { styles.friendRequestListContent }>
+              <RequestList/>
+            </div>
+          </div>
+        </div>
       </div>
     );
-  }
-
-  onClick = (i) => {
-    if (i === 1)
-      return () => {
-        if (!this.state.friendActive) {
-          this.setState({
-            friendActive: true,
-            requestActive: false
-          });
-        }
-      }
-    return () => {
-      if (!this.state.requestActive) {
-        this.setState({
-          friendActive: false,
-          requestActive: true
-        });
-      }
-    }
   }
 }
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Message from './Message';
 import { connect } from 'react-redux';
 import styles from '../../../style/message.css';
+import style from '../../../style/friendMessageContainer.css';
 
 class MessageList extends Component {
   constructor(props) {
@@ -23,29 +24,33 @@ class MessageList extends Component {
       }
     });
     return (
-      <div>
-        <div className = { styles.messageHeader }>
-          Messages
-        </div>
+      <div className = { style.messageContainer }>
         {
-          sortedMessageList.keySeq().map((e) => {
-            return (
-              <Message
-                friend = { e }
-                lastMessage = { messageList.get(e).get('lastMessage').message }
-                key = { e }
-                changeActiveChat = { this.changeActiveChat(e) }
-                selected = { selected === e ? true : false }
-                unreadCount = { messageList.get(e).get('unreadCount') }
-              />
-            );
-          })
+          sortedMessageList.size === 0 ? (
+            <div style = {{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px' }}>
+              <div>
+                No messages
+                <i className = 'meh icon'></i>
+              </div>
+            </div>
+          ) : (
+            sortedMessageList.keySeq().map((e) => {
+              return (
+                <Message
+                  friend = { e }
+                  lastMessage = { messageList.get(e).get('lastMessage').message }
+                  key = { e }
+                  changeActiveChat = { this.changeActiveChat(e) }
+                  selected = { selected === e ? true : false }
+                  unreadCount = { messageList.get(e).get('unreadCount') }
+                />
+              );
+            })
+          )
         }
       </div>
     );
   }
-
-
 
   changeActiveChat = (friend) => {
     return () => {

@@ -67,7 +67,7 @@ const acceptFriendRequest = ({ username, friend, time }) => {
       friend: friend
     })),
     client.publish(`pubsub:${friend}`, JSON.stringify({
-      type: 'New Friend',
+      type: 'New Friend Accept',
       friend: username
     }))
   ]);
@@ -82,11 +82,26 @@ const declineFriendRequest = ({ username, friend }) => {
 
 const addFriendRequest = ({ username, friend , time }) => {
   console.log(`ADD_FRIEND_REQUEST: ${username}, ${friend}`);
+  if (username === friend)
+    return;
   return client
     .zscore(`friendRequest:in:${username}`, friend)
     .then((o) => {
       if (o !== null) {
-        return acceptFriendRequest({ username, friend, time });
+        return Promise.all([
+          client.zrem(`friendRequest:in:${username}`, friend),
+          client.zrem(`friendRequest:out:${friend}`, username),
+          client.zadd(`friendList:${username}`, time, friend),
+          client.zadd(`friendList:${friend}`, time, username),
+          client.publish(`pubsub:${username}`, JSON.stringify({
+            type: 'New Friend Accept',
+            friend: friend
+          })),
+          client.publish(`pubsub:${friend}`, JSON.stringify({
+            type: 'New Friend Accept',
+            friend: username
+          }))
+        ]);
       } else {
         return Promise.all([
           client.zadd(`friendRequest:out:${username}`, time, friend),

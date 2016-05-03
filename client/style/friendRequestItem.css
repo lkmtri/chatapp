@@ -20,6 +20,7 @@
   flex-grow: 1;
   display: flex;
   align-items: center;
+  font-weight: bold;
 }
 
 .friendRequestItemActions {
@@ -27,4 +28,38 @@
   display: flex;
   align-items: center;
   width: 70px;
+}
+
+.acceptMenuIcon {
+  cursor: pointer;
+  transition: color 0.6s ease, transform 0.2s ease;
+  display: flex;
+  display: -webkit-box;
+  align-items: center;
+  font-size: 18px !important;
+  line-height: 18px;
+  margin-right: 10px!important;
+  color: #dedede;
+}
+
+.acceptMenuIcon:hover {
+  color: #008080;
+  transform: scale(1.1);
+}
+
+.declineMenuIcon {
+  cursor: pointer;
+  transition: color 0.6s ease, transform 0.2s ease;
+  display: flex;
+  display: -webkit-box;
+  align-items: center;
+  font-size: 18px !important;
+  line-height: 18px;
+  margin-right: 10px!important;
+  color: #dedede;
+}
+
+.declineMenuIcon:hover {
+  color: #B03060;
+  transform: scale(1.1);
 }

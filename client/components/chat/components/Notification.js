@@ -15,6 +15,10 @@ class Notification extends Component {
   render() {
     const hidden = this.state.isHidden ? styles.hidden : '';
     const success = this.state.isSuccess ? ' success ' : ' negative ';
+    let notificationMessage = this.props.message + ' ' +this.props.data;
+    if (notificationMessage.length > 100) {
+      notificationMessage = notificationMessage.substr(0, 100) + '...';
+    }
     return (
       <div className = { styles.notificationContainter }>
         <div className = { styles.notificationLeft }>
@@ -22,7 +26,7 @@ class Notification extends Component {
         <div className = { styles.notificationMid }>
           <div className = { 'ui' + success + 'message ' + styles.messageContainer  + ' ' + hidden }>
             <i className = 'close icon' onClick = { this.closeNotification }></i>
-            { this.props.message + ' ' + this.props.data }
+            { notificationMessage }
           </div>
         </div>
         <div className = { styles.notificationRight }>

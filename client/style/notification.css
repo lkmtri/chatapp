@@ -8,6 +8,8 @@
   height: 1px;
   overflow: visible;
   z-index: 999;
+  font-weight: bold;
+  font-size: 14px;
 }
 
 .hidden {

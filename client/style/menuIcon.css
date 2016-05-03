@@ -9,6 +9,23 @@
   margin-right: 10px!important;
 }
 
+.menuIconWithNoti {
+  cursor: pointer;
+  transition: color 0.6s ease, transform 0.2s ease;
+  display: flex;
+  display: -webkit-box;
+  align-items: center;
+  font-size: 22px !important;
+  line-height: 22px;
+  margin-right: 10px!important;
+  color: #B03060;
+}
+
+.menuIconWithNoti:hover {
+  color: #000000;
+  transform: scale(1.1);
+}
+
 .menuIconHidden {
   display: none;
   visibility: hidden;

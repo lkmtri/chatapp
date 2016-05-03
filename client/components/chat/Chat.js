@@ -5,6 +5,8 @@ import Menu from './menu/Menu';
 import MessageList from './messages/MessageList';
 import FriendManager from './friends/FriendManager';
 import ChatPanel from './chatPanel/ChatPanel';
+import Notification from './components/Notification';
+import ScrollableFriendMessage from './scrollableFriendMessage/ScrollableFriendMessage';
 
 class Chat extends Component {
 
@@ -13,10 +15,10 @@ class Chat extends Component {
       <div className = {styles.chat}>
         <div className = {styles.chatLeft}>
           <Menu/>
-          { this.props.view === 'friend' ? (
+          { this.props.view === 'friend_request' ? (
               <FriendManager/>
             ) : (
-              <MessageList/>
+              <ScrollableFriendMessage/>
             )
           }
         </div>
@@ -25,6 +27,7 @@ class Chat extends Component {
             <ChatPanel/>
           ) : (
             <div className = { styles.chatRightEmpty }>
+              <Notification/>
               Welcome to ChatApp
             </div>
           )

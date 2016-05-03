@@ -20,7 +20,7 @@ class Messages extends Component {
     const lastMessage = messageList.get(active) === undefined ? '' : messageList.get(active).get('lastMessage').message;
     const notiHidden = this.state.messageNotification ? '' : style.messageNotiHidden;
     return (
-      <div className = { style.message }>
+      <div className = { style.messageScrollWrapper }>
         <div ref = { c => this._message = c } onScroll =  { this.onScroll } className = { style.messageScroll }>
           <div ref = { c => this._messageDiv = c } className = { style.messageDiv }>
             {

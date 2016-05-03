@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import styles from '../../../style/menuIcon.css';
+import styles from '../../../style/friendRequestList.css';
 import Modal from '../components/Modal';
 import request from '../../../actions/requestFriend';
 
@@ -16,7 +16,7 @@ class AddFriend extends Component {
   render() {
     return (
       <div>
-        <i className = { 'add user icon ' + styles.menuIcon } onClick = { this.openModal }/>
+        <i className = { 'plus icon ' + styles.menuIcon } onClick = { this.openModal }/>
         <Modal
           keys = 'AddFriend'
           header = 'Add a Friend'

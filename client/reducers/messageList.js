@@ -18,6 +18,7 @@ const composeMessage = (mes) => {
 
 const messageList = (state = Immutable.Map({
   active: '',
+  newMessageNoti: false,
   messages: Immutable.Map({})
 }), action) => {
   switch(action.type) {
@@ -39,15 +40,25 @@ const messageList = (state = Immutable.Map({
       }
       return newState.set('messages', newMessageList);
     case 'MESSAGE_IN':
+      const updatedMessageList = state.get('messages').set(action.friend, message(state.get('messages').get(action.friend), action));
+      const activeChat = state.get('active');
+      if (activeChat !== action.friend) {
+        return state.set('messages', updatedMessageList).set('newMessageNoti', true);
+      } else {
+        return state.set('messages', updatedMessageList);
+      }
     case 'MESSAGE_OUT':
     case 'MESSAGE_DELIVERED':
     case 'MESSAGE_IN_READ':
     case 'MESSAGE_OUT_READ':
       const updatedMessages = state.get('messages').set(action.friend, message(state.get('messages').get(action.friend), action));
       return state.set('messages', updatedMessages);
+    case 'DISABLE_NEW_MESSAGE_NOTI':
+      return state.set('newMessageNoti', false);
     case 'LOGOUT_SUCCESSFUL':
       return Immutable.Map({
         active: '',
+        newMessageNoti: false,
         messages: Immutable.Map({})
       });
     default:

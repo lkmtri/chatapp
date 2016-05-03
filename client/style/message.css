@@ -5,20 +5,10 @@
   display: flex;
   padding: 10px;
   flex-direction: row;
-  border-bottom: 1px #dedede solid;
+  border-bottom: 1px #efefef solid;
   transition: background-color 0.2s ease-in-out;
   align-items: center;
-}
-
-.messageHeader {
-  height: 65px;
-  width: 100%;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /*border-top: 5px #dedede solid;*/
-  border-bottom: 1px #dedede solid;
+  font-size: 14px;
 }
 
 .messageSelected {
@@ -28,13 +18,14 @@
   display: flex;
   padding: 10px;
   flex-direction: row;
-  border-bottom: 1px #dedede solid;
-  background-color: #dedede;
+  border-bottom: 1px #efefef solid;
+  background-color: #efefef;
   align-items: center;
+  font-size: 14px;
 }
 
 .message:hover {
-  background-color: #ebebeb;
+  background-color: #f6f7f8;
 }
 
 .avatar {

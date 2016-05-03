@@ -8,7 +8,6 @@ import PrintStore from './PrintStore';
 
 class Avatar extends Component {
   render() {
-    // console.log('username ' + this.props.user.username);
     const shaObj = new jsSHA('SHA-512', 'TEXT');
     shaObj.update(this.props.user.username);
     const avatar = new Identicon(shaObj.getHash('HEX'), 420).toString();

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styles from '../../../style/friendRequestItem.css';
-import iconStyles from '../../../style/menuIcon.css';
 const Identicon = require('identicon.js');
 import jsSHA from 'jssha';
 import Image from '../components/Image';
@@ -19,8 +18,8 @@ class RequestItem extends Component {
           { this.props.username }
         </div>
         <div className = { styles.friendRequestItemActions }>
-          <i className = { 'remove icon ' + iconStyles.menuIcon } onClick = { this.props.onDecline }/>
-          <i className = { 'checkmark icon ' + iconStyles.menuIcon } onClick = { this.props.onAccept }/>
+          <i className = { 'remove circle icon ' + styles.declineMenuIcon } onClick = { this.props.onDecline }/>
+          <i className = { 'check circle icon ' + styles.acceptMenuIcon } onClick = { this.props.onAccept }/>
         </div>
       </div>
     );
