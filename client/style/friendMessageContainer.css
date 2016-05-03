@@ -86,7 +86,15 @@
 }
 
 .messageContainer {
- display: flex;
- flex-direction: column;
+  /*flex: 1;*/
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.friendListContainer {
+  /*min-height: 100%;*/
+  display: flex;
+  flex-direction: column;
 }
 

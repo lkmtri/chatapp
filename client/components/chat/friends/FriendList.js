@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import FriendItem from './FriendItem';
+import style from '../../../style/friendMessageContainer.css';
 
 class FriendList extends Component {
   render() {
     return (
-      <div>
+      <div className = { style.friendListContainer }>
         <div style = {{ padding: '5px', backgroundColor: '#f6f7f8', color: '#bebebe', paddingLeft: '10px' }}>
           Friends
         </div>

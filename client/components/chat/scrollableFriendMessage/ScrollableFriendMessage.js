@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import style from '../../../style/friendMessageContainer.css';
 import MessageList from '../messages/MessageList';
@@ -17,7 +18,7 @@ class ScrollableFriendMessage extends Component {
   render() {
     return (
       <div className = { style.scrollableFriendMessageContainerWrapper }>
-        <div className = { style.scrollableFriendMessageContent }>
+        <div ref = { c => this._messageContainer = c } className = { style.scrollableFriendMessageContent }>
           <div className = { style.friendMessageContainer }>
             <div className = { style.searchContainer }>
               <div className = { style.searchInputContainer }>
@@ -44,6 +45,11 @@ class ScrollableFriendMessage extends Component {
         </div>
       </div>
     );
+  }
+
+  componentDidMount() {
+    const node = ReactDOM.findDOMNode(this._messageContainer);
+    node.scrollTop = 50;
   }
 
   componentWillUpdate(nextProps) {

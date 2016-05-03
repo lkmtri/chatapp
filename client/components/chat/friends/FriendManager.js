@@ -33,7 +33,7 @@ class FriendManager extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    friendList: state.friendList
+    friendRequestList: state.friendRequestList
   };
 }
 

@@ -28,7 +28,7 @@ class Chat extends Component {
           ) : (
             <div className = { styles.chatRightEmpty }>
               <Notification/>
-              Welcome to ChatApp
+              ChatApp by lkmtri
             </div>
           )
         }

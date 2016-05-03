@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import Message from './Message';
 import { connect } from 'react-redux';
-import styles from '../../../style/message.css';
 import style from '../../../style/friendMessageContainer.css';
+import Message from './Message';
 
 class MessageList extends Component {
   constructor(props) {
