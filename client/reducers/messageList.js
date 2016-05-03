@@ -3,15 +3,17 @@ import Immutable from 'immutable';
 
 const composeMessage = (mes) => {
   let unreadCount = 0;
+  // console.log(mes);
   let message = mes.message.map((m) => {
-    const mes = JSON.parse(m);
-    if (mes.status !== 'read' && mes.type === 'in') {
+    const messsageContent = JSON.parse(m);
+    if (messsageContent.status !== 'read' && messsageContent.type === 'in') {
       unreadCount = unreadCount + 1;
     }
-    return mes;
+    return messsageContent;
   });
-  let lastMes = message[message.length - 1];
+  const lastMes = Object.assign({}, message[message.length - 1]);
   lastMes.message = lastMes.message.length > 40 ? lastMes.message.substring(0, 40) + ' ..' : lastMes.message;
+  // console.log(message);
   message = Immutable.List.of(...message);
   return Immutable.Map({ lastMessage: lastMes, unreadCount, message });
 }
