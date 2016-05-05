@@ -13,7 +13,6 @@ const composeMessage = (mes) => {
   });
   const lastMes = Object.assign({}, message[message.length - 1]);
   lastMes.message = lastMes.message.length > 40 ? lastMes.message.substring(0, 40) + ' ..' : lastMes.message;
-  // console.log(message);
   message = Immutable.List.of(...message);
   return Immutable.Map({ lastMessage: lastMes, unreadCount, message });
 }
